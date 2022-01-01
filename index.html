@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <nav>Rock, Paper & Scissors</nav> 
+    <div>
+        <h1>Round </h1>
+    </div>
+    <div class="choices">
+        <div>
+            You choose...
+            <div class="player-choice">
+
+            </div>
+        </div>
+        <div>
+            The computer choose...
+            <div class="comp-choice">
+
+            </div>
+        </div>
+    </div>
+    <div class="results">
+    </div>
+    <div class="scores">
+        <div class="user-score">
+            <h3>User Score</h3><br>
+        </div>
+        <div class="comp-score">
+            <h3>Computer Score</h3><br>
+        </div>
+    </div>
+    <div class="buttons">
+    <button value="rock">Rock</button> <button value="paper">Paper</button> <button value="scissors">Scissors</button>
+    </div>
+
+    <script>
+        let round = 0;
+        let compScore = 0;
+        let userScore = 0;
+
+        function playRound(event) {
+            let playerSelected = event.target.value;
+            let computerSelection = computerPlay();
+
+            round += 1;
+            
+            let currentRound = document.querySelector('div  h1');
+            currentRound.textContent = `Round ${round}`;
+
+            // display choices
+
+            let playerChoice = document.querySelector('.player-choice');
+            let compChoice = document.querySelector('.comp-choice');
+
+            playerChoice.textContent = playerSelected.toUpperCase();
+            compChoice.textContent = computerSelection.toUpperCase();
+
+            let results = document.querySelector('.results');
+
+            
+            if (playerSelected == computerSelection) {
+                results.textContent = 'It\'s a tie!';
+            }else if (playerSelected == 'rock' && computerSelection == 'paper') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }else if (playerSelected == 'rock' && computerSelection == 'scissors') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'paper' && computerSelection == 'rock') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'paper' && computerSelection == 'scissors') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }else if (playerSelected == 'scissors' && computerSelection == 'rock') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }else if (playerSelected == 'scissors' && computerSelection == 'paper') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'paper' && computerSelection == 'rock') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'scissors' && computerSelection == 'rock') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }else if (playerSelected == 'rock' && computerSelection == 'paper') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }else if (playerSelected == 'scissors' && computerSelection == 'paper') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'rock' && computerSelection == 'scissors') {
+                results.textContent = 'You won!';
+                ++userScore;
+            }else if (playerSelected == 'paper' && computerSelection == 'scissors') {
+                results.textContent = 'Sorry, the computer won!';
+                ++compScore;
+            }
+
+
+            // update scores 
+
+            let playerScore = document.querySelector('.user-score');
+            let computerScore = document.querySelector('.comp-score');
+
+            playerScore.textContent = `Player Score: ${userScore}`
+            computerScore.textContent = `Computer Score: ${compScore}`
+
+            // declare winner and reset values once round 5 ends
+            if(round == 5) {
+                if (compScore > userScore) {
+                    alert('The computer won this game!')
+                }else if (userScore > compScore) {
+                    alert('You have won!')
+                }else {
+                    alert('No winner. It\'s a tie')
+                }
+                round = 0;
+                compScore = 0;
+                userScore = 0;
+            }
+        }
+
+
+        btns = document.querySelectorAll('button');
+        btns.forEach((btn) => btn.addEventListener('click', playRound));
+
+        function computerPlay(){
+            let number = Math.floor(Math.random() * 3);
+            let compChoice;
+
+            if (number == 0) {
+                compChoice = 'rock';
+                return compChoice;
+            }else if (number == 1) {
+                compChoice = 'paper';
+                return compChoice;
+            }
+            compChoice = 'scissors';
+            return compChoice;
+        }        
+    </script>
+</body>
+</html>
